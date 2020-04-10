@@ -56,9 +56,12 @@ T_Record* b_search_by_name(char* n){
 
 void b_update(T_Record* p, char* w, char* pu, int s, char* l){
     strcpy(p->writer, w);
-	strcpy(p->publisher, pu);
+    strcpy(p->publisher, pu);
     p->status=s;
     strcpy(p->location, l);
+#ifdef DEBUG
+        printf("[DEBUG] B_Update success!\n");
+#endif
 }
 
 void b_delete(T_Record* p){

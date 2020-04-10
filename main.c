@@ -127,7 +127,31 @@ void read_record(){
 }
 
 void update_record(){
+    char name[50], writer[50], publisher[20], location[20];
+    int status;
+    printf("Enter a name > ");
+    getchar();
+    scanf("%[^\n]s", name);
+    getchar();
 
+    T_Record* p = b_search_by_name(name);
+    if(p) {
+        printf("Enter a updated info.\n");
+        printf("Writer > ");
+        scanf("%[^\n]s", writer);
+        getchar();
+        printf("Publisher > ");
+        scanf("%s", publisher);
+        printf("Status > ");
+        scanf("%d", &status);
+        printf("Location > ");
+        scanf("%s", location);
+
+        m_update(p, writer, publisher, status, location);
+    }
+    else {
+        printf("No such member!\n");
+    }
 }
 
 void delete_record(){
