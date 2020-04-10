@@ -146,8 +146,7 @@ void update_record(){
         scanf("%d", &status);
         printf("Location > ");
         scanf("%s", location);
-
-        m_update(p, writer, publisher, status, location);
+	b_update(p, writer, publisher, status, location);
     }
     else {
         printf("No such member!\n");
@@ -155,7 +154,20 @@ void update_record(){
 }
 
 void delete_record(){
+	char name[50];
+	printf("Enter a name > ");
+	getchar();
+	scanf("%[^\n]s", name);
+	getchar();
 
+	T_Record* p=b_search_by_name(name);
+	if(p){
+		b_delete(p);
+		printf("The record is deleted!\n");
+	}
+	else{
+		printf("No such book!\n");
+	}
 }
 
 void list_record(){
@@ -171,23 +183,77 @@ void list_record(){
 }
 
 void search_name(){
+	char name[50];
+	printf("Enter a name > ");
+	getchar();
+	scanf("%[^\n]s", name);
+	getchar();
 
+	T_Record* records[MAX_BOOKS];
+	int size=b_get_all_by_name(records, name);
+	printf("%d records found.\n", size);
+	for(int i=0;i<size;i++){
+		T_Record* p=records[i];
+		printf("%d. %s\n", i+1, b_to_string(p));
+	}
 }
 
 void search_writer(){
+	char writer[50];
+	printf("Enter a writer > ");
+	getchar();
+	scanf("%[^\n]s", writer);
+	getchar();
 
+	T_Record* records[MAX_BOOKS];
+	int size=b_get_all_by_writer(records, writer);
+	printf("%d records found.\n", size);
+	for(int i=0;i<size;i++){
+		T_Record* p=records[i];
+		printf("%d. %s\n", i+1, b_to_string(p));
+	}
 }
 
 void search_publisher(){
+	char publisher[20];
+	printf("Enter a publisher > ");
+	scanf("%s", publisher);
 
+	T_Record* records[MAX_BOOKS];
+	int size=b_get_all_by_publisher(records, publisher);
+	printf("%d records found.\n", size);
+	for(int i=0;i<size;i++){
+		T_Record* p=records[i];
+		printf("%d. %s\n", i+1, b_to_string(p));
+	}
 }
 
 void search_status(){
+	int status;
+	printf("Enter a status(possible:1 impossible:0) > ");
+	scanf("%d", &status);
 
+	T_Record* records[MAX_BOOKS];
+	int size=b_get_all_by_status(records, status);
+	printf("%d records found.\n", size);
+	for(int i=0;i<size;i++){
+		T_Record* p=records[i];
+		printf("%d. %s\n", i+1, b_to_string(p));
+	}
 }
 
 void search_location(){
+	char location[20];
+	printf("Enter a location > ");
+	scanf("%s", location);
 
+	T_Record* records[MAX_BOOKS];
+	int size=b_get_all_by_location(records, location);
+	printf("%d records found.\n", size);
+	for(int i=0;i<size;i++){
+		T_Record* p=records[i];
+		printf("%d. %s\n", i+1, b_to_string(p));
+	}
 }
 
 void sort_record(){
@@ -243,7 +309,11 @@ void save_file(){
 }
 
 void debug_records(){
-
+	T_Record* records[MAX_BOOKS]={0};
+	b_get_all_debug(records);
+	for(int i=0;i<MAX_BOOKS;i++){
+		printf("%d - %p\n", i, records[i]);
+	}
 }
 
 

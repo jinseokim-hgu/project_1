@@ -73,6 +73,9 @@ void b_delete(T_Record* p){
         }
     free(p);
     books[index] = NULL;
+#ifdef DEBUG
+        printf("[DEBUG] B_Delete success!\n");
+#endif
     _count--;
 }
 
@@ -98,7 +101,7 @@ void b_get_all(T_Record* a[]){
 #endif
 }
 
-void b_get_all2(T_Record* a[]){
+void b_get_all_debug(T_Record* a[]){
     int i;
     for(i=0; i<MAX_BOOKS; i++){
         a[i]=books[i];
@@ -169,6 +172,51 @@ int b_get_all_by_writer(T_Record* a[], char* w){
     }
 #ifdef DEBUG
 	printf("[DEBUG] B_Get_All_By_%s success!\n", w);
+#endif
+    return c;
+}
+
+int b_get_all_by_publisher(T_Record* a[], char* pu){
+    // 회원거주도시가 문자열과 일치하는 모든 레코드 포인터의 배열 만들기 
+    int i, c=0;
+    for(i=0; i<_count; i++){
+        if(books[i]!=NULL && (strcmp(books[i]->publisher, pu)==0)){
+            a[c]=books[i];
+            c++;
+        }
+    }
+#ifdef DEBUG
+	printf("[DEBUG] B_Get_All_By_%s success!\n", pu);
+#endif
+    return c;
+}
+
+int b_get_all_by_status(T_Record* a[], int s){
+    // 회원거주도시가 문자열과 일치하는 모든 레코드 포인터의 배열 만들기 
+    int i, c=0;
+    for(i=0; i<_count; i++){
+        if(books[i]!=NULL && books[i]->status==s){
+            a[c]=books[i];
+            c++;
+        }
+    }
+#ifdef DEBUG
+	printf("[DEBUG] B_Get_All_By_%d success!\n", s);
+#endif
+    return c;
+}
+
+int b_get_all_by_location(T_Record* a[], char* l){
+    // 회원이름에 문자열이 포함된 모든 레코드 포인터의 배열 만들기    
+    int i, c=0;
+    for(i=0; i<_count; i++){
+        if(books[i]!=NULL && strstr(books[i]->location, l)){
+            a[c]=books[i];
+            c++;
+        }
+    }
+#ifdef DEBUG
+	printf("[DEBUG] B_Get_All_By_%s success!\n", l);
 #endif
     return c;
 }
