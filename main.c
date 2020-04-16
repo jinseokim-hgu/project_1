@@ -11,9 +11,10 @@ void search_writer(); //
 void search_publisher(); //
 void search_status(); //
 void search_location();
-void sort_record(); //
+void defragmentation();
 void load_file(); //
 void save_file(); //
+void report_record();
 void debug_records(); // for debug 
 
 int main()
@@ -23,7 +24,7 @@ int main()
 	while(1){
 		printf("\nMenu : 1.Create 2.Read 3.Update 4.Delete 5.List");
 		printf("\n6:Search(name) 7.Search(writer) 8.Search(publisher) 9.Search(status)");
-		printf("\n10.Search(location) 11.Sort 12.Load 13.Save 0.Quit > ");
+		printf("\n10.Search(location) 11.Defragmentation 12.Load 13.Save 14.Report 0.Quit > ");
 		scanf("%d", &menu);
 		printf("\n");
 		switch(menu){
@@ -58,7 +59,7 @@ int main()
 				search_location();
 				break;
 			case 11:
-				sort_record();
+				defragmentation();
 				break;
 			case 12:
 				load_file();
@@ -66,7 +67,10 @@ int main()
 			case 13:
 				save_file();
 				break;
-			case 15:
+			case 14:
+				report_record();
+				break;
+			case 16:
 				debug_records();
 				break;
 			case 0:
@@ -256,8 +260,9 @@ void search_location(){
 	}
 }
 
-void sort_record(){
-
+void defragmentation(){
+	b_defragmentation();
+	printf("Defragmentation Success.\n");
 }
 
 void load_file(){
@@ -308,41 +313,69 @@ void save_file(){
 	fclose(f);
 }
 
+void report_record(){
+	int menu,count;
+	char name[50], writer[50], publisher[20], location[20];
+	int status;
+	T_Record* records[MAX_BOOKS];
+	printf("What item would you like to print the report to?");
+	printf("\n1:Status 2:Writer 3:Publisher 4:Location 5:Name(keyword) > ");
+	scanf("%d", &menu);
+
+	switch(menu){
+		case 1:
+			printf("Enter a status(possible:1 impossible:0) > ");
+			scanf("%d", &status);
+			if(status==1){
+				count=b_get_all_by_status(records, status);
+				printf("\nOut of total [%d] books,", b_count());
+				printf("\nthe number of books available for loan is [%d].\n", count);
+			}
+			else{
+				count=b_get_all_by_status(records, status);
+				printf("\nOut of total [%d] books,", b_count());
+				printf("\nthe number of books non-available for loan is [%d].\n", count);
+			}
+			break;
+		case 2:
+			printf("Enter a writer > ");
+			getchar();
+			scanf("%[^\n]s", writer);
+			getchar();
+			count=b_get_all_by_writer(records, writer);
+			printf("\nOut of total [%d] books,", b_count());
+			printf("\nthe [%s] author's books are [%d].\n", writer, count);
+			break;
+		case 3:
+			printf("Enter a publisher > ");
+			scanf("%s", publisher);
+			count=b_get_all_by_publisher(records, publisher);
+			printf("\nOut of total [%d] books,", b_count());
+			printf("\nthe [%s] publisher's books are [%d].\n", publisher, count);
+			break;
+		case 4:
+			printf("Enter a location > ");
+			scanf("%s", location);
+			count=b_get_all_by_location(records, location);
+			printf("\nOut of total [%d] books,", b_count());
+			printf("\nthe books located in the [%s] are [%d].\n", location, count);
+			break;
+		case 5:
+			printf("Enter a name > ");
+			getchar();
+			scanf("%[^\n]s", name);
+			getchar();
+			count=b_get_all_by_name(records, name);
+			printf("\nOut of total [%d] books,", b_count());
+			printf("\nthe books with [%s] in the title are [%d].\n", name, count);
+			break;
+	}
+}
+
 void debug_records(){
-	T_Record* records[MAX_BOOKS]={0};
+	T_Record* records[MAX_BOOKS]={0x0};
 	b_get_all_debug(records);
 	for(int i=0;i<MAX_BOOKS;i++){
 		printf("%d - %p\n", i, records[i]);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

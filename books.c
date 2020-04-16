@@ -32,7 +32,7 @@ void b_create(char* n, char* w, char* pu, int s, char* l){
     T_Record* p = books[index];
     strcpy(p->name, n);  
     strcpy(p->writer, w);
-	strcpy(p->publisher, pu);
+    strcpy(p->publisher, pu);
     p->status=s;
     strcpy(p->location, l);
 #ifdef DEBUG
@@ -71,7 +71,7 @@ void b_delete(T_Record* p){
             index=i;
             break;
         }
-    free(p);
+    free(books[index]);
     books[index] = NULL;
 #ifdef DEBUG
         printf("[DEBUG] B_Delete success!\n");
@@ -219,6 +219,18 @@ int b_get_all_by_location(T_Record* a[], char* l){
 	printf("[DEBUG] B_Get_All_By_%s success!\n", l);
 #endif
     return c;
+}
+
+void b_defragmentation(){
+	for(int i=0;i<MAX_BOOKS;i++){
+		for(int j=i+1;j<MAX_BOOKS;j++){
+			if(books[i]==NULL && books[j]!=NULL){
+				b_create(books[j]->name, books[j]->writer, books[j]->publisher, books[j]->status, books[j]->location);
+				b_delete(books[j]);
+				break;
+			}
+		}
+	}
 }
 
 void b_init(){

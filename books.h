@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_BOOKS 100      // 저장할 수 있는 도서 레코드 최대 갯수
+#define MAX_BOOKS 10      // 저장할 수 있는 도서 레코드 최대 갯수
 
 // 도서 정보 레코드의 데이터 타입을 정의함
 typedef struct st_book{
@@ -34,5 +34,6 @@ int b_get_all_by_writer(T_Record* a[], char* w);  // 저자명이 문자열과 �
 int b_get_all_by_publisher(T_Record* a[], char* pu);  // 출판사명이 문자열과 일치하는 모든 레코드 포인터의 배열 만들기 
 int b_get_all_by_status(T_Record* a[], int s);  // 대출가능여부에 일치하는 모든 레코드 포인터의 배열 만들기
 int b_get_all_by_location(T_Record* a[], char* l); // 위치에 문자열이 포함된 모든 레코드 포인터의 배열 만들기
+void b_defragmentation(); // 데이터 조각 모음
 void b_init(); // 모든 레코드 제거
 char* b_to_string_save(T_Record* p); // 특정 도서 레코드의 내용을 파일저장용 문자열로 가져오기
