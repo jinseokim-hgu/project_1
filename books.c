@@ -233,6 +233,81 @@ void b_defragmentation(){
 	}
 }
 
+void b_sort_by_name(){
+	T_Record temp;
+	for(int i=0;i<MAX_BOOKS;i++){
+		if(books[i]!=NULL){
+			for(int j=i+1;j<MAX_BOOKS;j++){
+				if(books[j]!=NULL && strcmp(books[i]->name,books[j]->name)>0){
+					temp=*books[i];
+					*books[i]=*books[j];
+					*books[j]=temp;
+				}
+			}
+		}
+	}
+}
+
+void b_sort_by_writer(){
+	T_Record temp;
+	for(int i=0;i<MAX_BOOKS;i++){
+		if(books[i]!=NULL){
+			for(int j=i+1;j<MAX_BOOKS;j++){
+				if(books[j]!=NULL && strcmp(books[i]->writer,books[j]->writer)>0){
+					temp=*books[i];
+					*books[i]=*books[j];
+					*books[j]=temp;
+				}
+			}
+		}
+	}
+}
+
+void b_sort_by_publisher(){
+	T_Record temp;
+	for(int i=0;i<MAX_BOOKS;i++){
+		if(books[i]!=NULL){
+			for(int j=i+1;j<MAX_BOOKS;j++){
+				if(books[j]!=NULL && strcmp(books[i]->publisher,books[j]->publisher)>0){
+					temp=*books[i];
+					*books[i]=*books[j];
+					*books[j]=temp;
+				}
+			}
+		}
+	}
+}
+
+void b_sort_by_status(){
+	T_Record temp;
+	for(int i=0;i<MAX_BOOKS;i++){
+		if(books[i]!=NULL){
+			for(int j=i+1;j<MAX_BOOKS;j++){
+				if(books[j]!=NULL && books[i]->status<books[j]->status){
+					temp=*books[i];
+					*books[i]=*books[j];
+					*books[j]=temp;
+				}
+			}
+		}
+	}
+}
+
+void b_sort_by_location(){
+	T_Record temp;
+	for(int i=0;i<MAX_BOOKS;i++){
+		if(books[i]!=NULL){
+			for(int j=i+1;j<MAX_BOOKS;j++){
+				if(books[j]!=NULL && strcmp(books[i]->location,books[j]->location)>0){
+					temp=*books[i];
+					*books[i]=*books[j];
+					*books[j]=temp;
+				}
+			}
+		}
+	}
+}
+
 void b_init(){
     // 모든 레코드 제거    
     int i;

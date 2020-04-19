@@ -12,6 +12,7 @@ void search_publisher(); //
 void search_status(); //
 void search_location();
 void defragmentation();
+void sort_record();
 void load_file(); //
 void save_file(); //
 void report_record();
@@ -23,8 +24,8 @@ int main()
 	int menu;
 	while(1){
 		printf("\nMenu : 1.Create 2.Read 3.Update 4.Delete 5.List");
-		printf("\n6:Search(name) 7.Search(writer) 8.Search(publisher) 9.Search(status)");
-		printf("\n10.Search(location) 11.Defragmentation 12.Load 13.Save 14.Report 0.Quit > ");
+		printf("\n6:Search(name) 7.Search(writer) 8.Search(publisher) 9.Search(status) 10.Search(location)");
+		printf("\n11.Defragmentation 12.Sort 13.Load 14.Save 15.Report 0.Quit > ");
 		scanf("%d", &menu);
 		printf("\n");
 		switch(menu){
@@ -62,12 +63,15 @@ int main()
 				defragmentation();
 				break;
 			case 12:
-				load_file();
+				sort_record();
 				break;
 			case 13:
-				save_file();
+				load_file();
 				break;
 			case 14:
+				save_file();
+				break;
+			case 15:
 				report_record();
 				break;
 			case 16:
@@ -263,6 +267,35 @@ void search_location(){
 void defragmentation(){
 	b_defragmentation();
 	printf("Defragmentation Success.\n");
+}
+
+void sort_record(){
+	int menu;
+	printf("Which menu would you like to sort by?\n");
+	printf("1.Name 2.Writer 3.Publisher 4.Status 5.Location > ");
+	scanf("%d", &menu);
+	switch(menu){
+		case 1:
+			b_sort_by_name();
+			printf("\nSort by name success.\n");
+			break;
+		case 2:
+			b_sort_by_writer();
+			printf("\nSort by writer success.\n");
+			break;
+		case 3:
+			b_sort_by_publisher();
+			printf("\nSort by publisher success.\n");
+			break;
+		case 4:
+			b_sort_by_status();
+			printf("\nSort by status success.\n");
+			break;
+		case 5:
+			b_sort_by_location();
+			printf("\nSort by location success.\n");
+			break;
+	}
 }
 
 void load_file(){
